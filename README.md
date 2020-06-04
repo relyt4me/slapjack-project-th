@@ -27,7 +27,7 @@ Here I put the answers to How
 
 ## SetUp
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Installing
 1. Fork this project to your own Github account
@@ -66,5 +66,7 @@ Here should be the info on running index.html or other last step opeining locall
 [Original Project Link](link)
 
 ## Acknowledgements
+
+Background Image by: [Keith Misner](https://unsplash.com/@keithmisner)
 
 Mentor mentions and why or other help outside the group
