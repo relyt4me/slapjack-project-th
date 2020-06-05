@@ -10,7 +10,7 @@ body {
 
 .play-area-wrapper {
   position: absolute;
-  top: 25vh;
+  top: 28vh;
   left: 12.5vw;
   display: flex;
   justify-content: space-between;
@@ -19,11 +19,13 @@ body {
 
 img {
   width: 15%;
-  border: 3px solid black;
+  border: 4px solid #116466;
   border-radius: 2%;
 }
 
-h1{
+h1 {
+  padding-top: 5%;
   text-align: center;
   font-size: 15em;
+  color: #D1E8E2
 }
