@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("./assets/keith-misner-h0Vxgz5tyXA-unsplash.jpg");
+  position: relative;
+}
+
+.play-area-wrapper {
+  position: absolute;
+  top: 28vh;
+  left: 12.5vw;
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+}
+
+img {
+  width: 15%;
+  border: 4px solid #116466;
+  border-radius: 2%;
+}
+
+h1 {
+  padding-top: 5%;
+  text-align: center;
+  font-size: 15em;
+  color: #D1E8E2
+}
