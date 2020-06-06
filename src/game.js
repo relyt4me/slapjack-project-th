@@ -3,6 +3,7 @@ class Game {
     this.cards = cards;
     this.player1 = new Player(player1Name);
     this.player2 = new Player(player2Name);
+    this.centralCards = [];
   };
   shuffleDeck() {
     var shuffledCards = [];

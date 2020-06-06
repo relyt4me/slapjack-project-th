@@ -5,12 +5,12 @@ class Player {
     this.hand = [];
     this.name = name;
   };
-  playCard() {
+  playCard(centralCards) {
     //play firt card in array of hand
     //return first card in array of hand
     //check if player has cards in hand
     if (this.hand.length > 0) {
-      return this.hand.pop();
+      centralCards.push(this.hand.shift());
     };
   };
 
