@@ -4,10 +4,23 @@ class Game {
     this.player1 = new Player(player1Name);
     this.player2 = new Player(player2Name);
     this.centralCards = [];
+    this.gameMode = 'normal';
   };
+  redeal() {
+    this.cards = cards;
+    this.player1.hand = [];
+    this.player2.hand = [];
+    this.centralCards = [];
+    this.gameMode = 'normal';
+    this.shuffleDeck();
+    this.dealDeckToPlayers();
+    this.player1.isTurn = true;
+    this.players2.isTurn = false;
+  };
+
   shuffleDeck() {
     this.cards = this.shuffleCards(this.cards);
-  }
+  };
 
   shuffleCards(givenCards) {
     var startingLengthCards = givenCards.length;
@@ -31,6 +44,7 @@ class Game {
     if (this.isLegal()) {
       slappingPlayer.hand = slappingPlayer.hand.concat(this.centralCards);
       this.centralCards = [];
+      slappingPlayer.hand = shufflecards(slappingPlayer.hand);
     } else {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
     };

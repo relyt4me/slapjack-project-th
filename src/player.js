@@ -4,13 +4,17 @@ class Player {
     this.wins = 0;
     this.hand = [];
     this.name = name;
+    this.isTurn = true;
   };
-  playCard(centralCards) {
+  playCard(centralCards, gameMode) {
     //play firt card in array of hand
     //return first card in array of hand
     //check if player has cards in hand
     if (this.hand.length > 0) {
       centralCards.unshift(this.hand.shift());
+    };
+    if (this.hand.length < 1) {
+      gameMode = 'sudden death';
     };
   };
 
