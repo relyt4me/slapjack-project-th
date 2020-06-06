@@ -1,8 +1,9 @@
 class Player {
-  constructor() {
+  constructor(name) {
     this.id = Date.now();
     this.wins = 0;
     this.hand = [];
+    this.name = name;
   };
   playCard() {
     //play firt card in array of hand
