@@ -15,4 +15,9 @@ class Game {
   randomCard(setOfCards) {
     return Math.floor(Math.random() * setOfCards.length);
   };
+
+  dealDeckToPlayers() {
+    this.player1.hand = this.cards.splice(0, 26);
+    this.player2.hand = this.cards.splice(0, 26);
+  };
 };
