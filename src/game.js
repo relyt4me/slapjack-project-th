@@ -35,8 +35,14 @@ class Game {
   };
 
   isLegal() {
-    if (centralCards[0].){
-
+    if (centralCards[0].cardNum === 11) {
+      return true;
+    } else if (centralCards[0].cardNum === centralCards[1].cardNum) {
+      return true;
+    } else if (centralCards[0].cardNum === centralCards[2].cardNum) {
+      return true;
+    } else {
+      return false;
     };
   };
 };
