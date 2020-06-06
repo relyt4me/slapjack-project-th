@@ -15,7 +15,6 @@ class Game {
     for (var i = 0; i < startingLengthCards; i++) {
       shuffledCards.push(givenCards.splice(this.randomCard(givenCards), 1)[0])
     };
-    debugger;
     return shuffledCards;
   };
 
@@ -29,17 +28,20 @@ class Game {
   };
 
   slapCentralCards(slappingPlayer, opposingPlayer) {
-    //Check legality of slap
-    //if slap is legal add centralCards to players hand and shuffle
-    //if slap is not legal add top card of players hand to other player
+    if (this.isLegal()) {
+      slappingPlayer.hand = slappingPlayer.hand.concat(this.centralCards);
+      this.centralCards = [];
+    } else {
+      opposingPlayer.hand.push(slappingPlayer.hand.shift());
+    };
   };
 
   isLegal() {
-    if (centralCards[0].cardNum === 11) {
+    if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
       return true;
-    } else if (centralCards[0].cardNum === centralCards[1].cardNum) {
+    } else if (this.centralCards.length > 2 && this.centralCards[0].cardNum === this.centralCards[1].cardNum) {
       return true;
-    } else if (centralCards[0].cardNum === centralCards[2].cardNum) {
+    } else if (this.centralCards.length > 2 && this.centralCards[0].cardNum === this.centralCards[2].cardNum) {
       return true;
     } else {
       return false;
