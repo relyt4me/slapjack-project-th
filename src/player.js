@@ -14,15 +14,21 @@ class Player {
   };
 
   winGame() {
+    //Player's hand is reset, and they gain a win
+    this.wins ++;
+    this.hand = [];
   };
 };
 
-// var me = new Player();
-// console.log('ID ' + me.id);
-// console.log('Wins ' + me.wins);
-// console.log('Hand ' + me.hand);
-//
-// me.hand = [1, 2, 3];
-// console.log('New Hand ' + me.hand);
-// console.log('Played Card ' + me.playCard());
-// console.log('Final Hand ' + me.hand);
+var me = new Player();
+console.log('ID ' + me.id);
+console.log('Wins ' + me.wins);
+console.log('Hand ' + me.hand);
+
+me.hand = [1, 2, 3];
+console.log('New Hand ' + me.hand);
+console.log('Played Card ' + me.playCard());
+console.log('Final Hand ' + me.hand);
+
+me.winGame();
+console.log(me);
