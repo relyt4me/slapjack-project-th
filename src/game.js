@@ -34,9 +34,9 @@ class Game {
     //if slap is not legal add top card of players hand to other player
   };
 
-  // isLegal() {
-  //   if (){
-  //
-  //   };
-  // };
+  isLegal() {
+    if (centralCards[0].){
+
+    };
+  };
 };
