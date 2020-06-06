@@ -6,11 +6,17 @@ class Game {
     this.centralCards = [];
   };
   shuffleDeck() {
+    this.cards = this.shuffleCards(this.cards);
+  }
+
+  shuffleCards(givenCards) {
+    var startingLengthCards = givenCards.length;
     var shuffledCards = [];
-    for (var i = 0; i < 52; i++) {
-      shuffledCards.push(this.cards.splice(this.randomCard(this.cards), 1)[0])
+    for (var i = 0; i < startingLengthCards; i++) {
+      shuffledCards.push(givenCards.splice(this.randomCard(givenCards), 1)[0])
     };
-    this.cards = shuffledCards;
+    debugger;
+    return shuffledCards;
   };
 
   randomCard(setOfCards) {
@@ -21,4 +27,16 @@ class Game {
     this.player1.hand = this.cards.splice(0, 26);
     this.player2.hand = this.cards.splice(0, 26);
   };
+
+  slapCentralCards(slappingPlayer, opposingPlayer) {
+    //Check legality of slap
+    //if slap is legal add centralCards to players hand and shuffle
+    //if slap is not legal add top card of players hand to other player
+  };
+
+  // isLegal() {
+  //   if (){
+  //
+  //   };
+  // };
 };

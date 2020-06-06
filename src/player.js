@@ -10,7 +10,7 @@ class Player {
     //return first card in array of hand
     //check if player has cards in hand
     if (this.hand.length > 0) {
-      centralCards.push(this.hand.shift());
+      centralCards.unshift(this.hand.shift());
     };
   };
 
