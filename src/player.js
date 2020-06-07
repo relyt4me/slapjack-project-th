@@ -6,6 +6,7 @@ class Player {
     this.name = name;
     this.isTurn = true;
   };
+  
   playCard(centralCards, gameMode) {
     //play firt card in array of hand
     //return first card in array of hand
@@ -13,15 +14,16 @@ class Player {
     if (this.hand.length > 0) {
       centralCards.unshift(this.hand.shift());
     };
+
     if (this.hand.length < 1) {
       gameMode = 'sudden death';
     };
+
+    this.isTurn = false;
   };
 
   winGame() {
-    //Player's hand is reset, and they gain a win
     this.wins ++;
-    this.hand = [];
   };
 };
 
