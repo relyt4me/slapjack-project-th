@@ -7,13 +7,11 @@ class Player {
     this.onTheRopes = false;
   };
 
-  playCard(centralCards, gameMode) {
+  playCard(centralCards) {
     centralCards.unshift(this.hand.shift());
     if (this.hand.length === 0) {
-      gameMode = 'sudden death';
       this.onTheRopes = true;
     };
-    return gameMode;
   };
 
   winGame() {

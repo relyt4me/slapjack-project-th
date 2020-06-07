@@ -4,7 +4,6 @@ class Game {
     this.player1 = new Player(player1Name);
     this.player2 = new Player(player2Name);
     this.centralCards = [];
-    this.gameMode = 'normal';
   };
 
   redeal() {
@@ -12,7 +11,8 @@ class Game {
     this.player1.hand = [];
     this.player2.hand = [];
     this.centralCards = [];
-    this.gameMode = 'normal';
+    this.player1.onTheRopes = false;
+    this.player2.onTheRopes = false;
     this.shuffleDeck();
     this.dealDeckToPlayers();
     this.player1.isTurn = true;
@@ -74,11 +74,9 @@ class Game {
       slappingPlayer.hand = slappingPlayer.hand.concat(this.centralCards);
       this.centralCards = [];
       slappingPlayer.hand = this.shuffleCards(slappingPlayer.hand);
-      this.gameMode = 'normal';
       slappingPlayer.onTheRopes = false;
     } else if (slappingPlayer.hand.length > 0 && !this.isLegalSuddenDeath()) {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
-      this.gameMode = 'normal';
       opposingPlayer.onTheRopes = false;
     } else {
       slappingPlayer.winGame();
@@ -95,17 +93,20 @@ class Game {
   };
 
   checkPlay(playingPlayer, opposingPlayer) {
-    this.gameMode = playingPlayer.playCard(this.centralCards, this.gameMode);
-    if (this.gameMode === 'normal') {
+    playingPlayer.playCard(this.centralCards);
+    if (!playingPlayer.onTheRopes && !opposingPlayer.onTheRopes) {
       this.player1.isTurn = !this.player1.isTurn;
       this.player2.isTurn = !this.player2.isTurn;
-    } else if (this.gameMode === 'sudden death' && playingPlayer.onTheRopes) {
+    } else if (playingPlayer.onTheRopes && !opposingPlayer.onTheRopes) {
       this.player1.isTurn = !this.player1.isTurn;
       this.player2.isTurn = !this.player2.isTurn;
-    } else if (this.gameMode === 'sudden death' && !playingPlayer.onTheRopes && playingPlayer.hand.length === 0) {
+    } else if (!playingPlayer.onTheRopes && opposingPlayer.onTheRopes) {
+
+    } else if (playingPlayer.onTheRopes && opposingPlayer.onTheRopes) {
       playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
       this.centralCards = [];
       playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
+      playingPlayer.onTheRopes = false;
     }
     // if (playingPlayer.hand.length < 1 && this.gameMode === 'sudden death') {
     //   playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
