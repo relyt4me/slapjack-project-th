@@ -39,12 +39,12 @@ class Game {
 
   dealDeckToPlayers() {
     //********FOR TESTING*********//
-    this.player1.hand = this.cards.splice(0, 51);
-    this.player2.hand = this.cards.splice(0, 1);
+    // this.player1.hand = this.cards.splice(0, 51);
+    // this.player2.hand = this.cards.splice(0, 1);
     //********FOR TESTING*********//
 
-    // this.player1.hand = this.cards.splice(0, 26);
-    // this.player2.hand = this.cards.splice(0, 26);
+    this.player1.hand = this.cards.splice(0, 26);
+    this.player2.hand = this.cards.splice(0, 26);
   };
 
   slapCentralCardsNormal(slappingPlayer, opposingPlayer) {

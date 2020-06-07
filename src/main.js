@@ -40,6 +40,7 @@ function player1Slap() {
   } else {
     game.slapCentralCardsNormal(game.player1, game.player2)
   };
+  displayLastCard();
 };
 
 function player2Slap() {
@@ -48,8 +49,24 @@ function player2Slap() {
   } else {
     game.slapCentralCardsNormal(game.player2, game.player1)
   };
+  displayLastCard();
 };
 
 function displayLastCard() {
+  if (game.centralCards.length === 0) {
+    document.querySelector('.card-pile-area').src = 'assets/open-hand.png';
+  } else {
+    document.querySelector('.card-pile-area').src = game.centralCards[0].picture;
+  };
+  if (game.player1.hand.length === 0) {
+    document.querySelector('.player-one-area').src = "assets/open-hand.png";
+  } else {
+    document.querySelector('.player-one-area').src = "./assets/card-deck-assets/back.png";
+  }
+  if (game.player2.hand.length === 0) {
+    document.querySelector('.player-two-area').src = "assets/open-hand.png";
+  } else {
+    document.querySelector('.player-two-area').src = "./assets/card-deck-assets/back.png";
+  }
   console.log(game.centralCards[0].cardNum);
 };
