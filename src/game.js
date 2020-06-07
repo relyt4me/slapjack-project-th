@@ -38,8 +38,13 @@ class Game {
   };
 
   dealDeckToPlayers() {
-    this.player1.hand = this.cards.splice(0, 26);
-    this.player2.hand = this.cards.splice(0, 26);
+    //********FOR TESTING*********//
+    this.player1.hand = this.cards.splice(0, 51);
+    this.player2.hand = this.cards.splice(0, 1);
+    //********FOR TESTING*********//
+
+    // this.player1.hand = this.cards.splice(0, 26);
+    // this.player2.hand = this.cards.splice(0, 26);
   };
 
   slapCentralCardsNormal(slappingPlayer, opposingPlayer) {
@@ -70,9 +75,11 @@ class Game {
       this.centralCards = [];
       slappingPlayer.hand = this.shuffleCards(slappingPlayer.hand);
       this.gameMode = 'normal';
+      slappingPlayer.onTheRopes = false;
     } else if (slappingPlayer.hand.length > 0 && !this.isLegalSuddenDeath()) {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
       this.gameMode = 'normal';
+      opposingPlayer.onTheRopes = false;
     } else {
       slappingPlayer.winGame();
       this.redeal();
@@ -89,13 +96,24 @@ class Game {
 
   checkPlay(playingPlayer, opposingPlayer) {
     this.gameMode = playingPlayer.playCard(this.centralCards, this.gameMode);
-    if (playingPlayer.hand.length < 1 && this.gameMode === 'sudden death') {
+    if (this.gameMode === 'normal') {
+      this.player1.isTurn = !this.player1.isTurn;
+      this.player2.isTurn = !this.player2.isTurn;
+    } else if (this.gameMode === 'sudden death' && playingPlayer.onTheRopes) {
+      this.player1.isTurn = !this.player1.isTurn;
+      this.player2.isTurn = !this.player2.isTurn;
+    } else if (this.gameMode === 'sudden death' && !playingPlayer.onTheRopes && playingPlayer.hand.length === 0) {
       playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
       this.centralCards = [];
       playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
-    } else if (opposingPlayer.hand.length > 0) {
-      this.player1.isTurn = !this.player1.isTurn;
-      this.player2.isTurn = !this.player2.isTurn;
-    };
+    }
+    // if (playingPlayer.hand.length < 1 && this.gameMode === 'sudden death') {
+    //   playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
+    //   this.centralCards = [];
+    //   playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
+    // } else if (opposingPlayer.hand.length > 0) {
+    //   this.player1.isTurn = !this.player1.isTurn;
+    //   this.player2.isTurn = !this.player2.isTurn;
+    // };
   };
 };

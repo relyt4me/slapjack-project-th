@@ -6,24 +6,20 @@ document.addEventListener('keypress', controlHandler);
 
 function controlHandler(event) {
   if (event.code === 'KeyQ') {
-    console.log('q');
     player1Play();
   } else if (event.code === 'KeyP') {
-    console.log('p');
     player2Play();
   } else if (event.code === 'KeyF') {
-    console.log('f');
     player1Slap();
   } else if (event.code === 'KeyJ') {
-    console.log('j');
     player2Slap();
   };
-  displayTopThree();
 };
 
 function player1Play() {
   if (game.player1.isTurn) {
     game.checkPlay(game.player1, game.player2);
+    displayTopThree();
   } else {
     console.log('Not Your Turn');
   };
@@ -32,6 +28,7 @@ function player1Play() {
 function player2Play() {
   if (game.player2.isTurn) {
     game.checkPlay(game.player2, game.player1);
+    displayTopThree();
   } else {
     console.log('Not Your Turn');
   };
@@ -39,17 +36,17 @@ function player2Play() {
 
 function player1Slap() {
   if (game.gameMode === 'normal') {
-    slapCentralCardsNormal(game.player1, game.player2)
+    game.slapCentralCardsNormal(game.player1, game.player2)
   } else {
-    slapCentralCardsSuddenDeath(game.player1, game.player2)
+    game.slapCentralCardsSuddenDeath(game.player1, game.player2)
   };
 };
 
 function player2Slap() {
   if (game.gameMode === 'normal') {
-    slapCentralCardsNormal(game.player1, game.player2)
+    game.slapCentralCardsNormal(game.player1, game.player2)
   } else {
-    slapCentralCardsSuddenDeath(game.player1, game.player2)
+    game.slapCentralCardsSuddenDeath(game.player1, game.player2)
   };
 };
 
@@ -80,11 +77,12 @@ function player2Slap() {
 // };
 //
 function displayTopThree() {
-  if (game.centralCards.length === 1) {
-    console.log(game.centralCards[0].cardNum);
-  } else if (game.centralCards.length === 2) {
-    console.log(game.centralCards[0].cardNum + ' ' + game.centralCards[1].cardNum);
-  } else {
-    console.log(game.centralCards[0].cardNum + ' ' + game.centralCards[1].cardNum + ' ' + game.centralCards[2].cardNum);
-  };
+  console.log(game.centralCards);
+  // if (game.centralCards.length === 1) {
+  //   console.log(game.centralCards[0].cardNum);
+  // } else if (game.centralCards.length === 2) {
+  //   console.log(game.centralCards[0].cardNum + ' ' + game.centralCards[1].cardNum);
+  // } else {
+  //   console.log(game.centralCards[0].cardNum + ' ' + game.centralCards[1].cardNum + ' ' + game.centralCards[2].cardNum);
+  // };
 };
