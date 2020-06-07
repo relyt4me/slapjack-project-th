@@ -55,7 +55,7 @@ class Game {
   isLegalNormal() {
     if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
       return true;
-    } else if (this.centralCards.length > 2 && this.centralCards[0].cardNum === this.centralCards[1].cardNum) {
+    } else if (this.centralCards.length > 1 && this.centralCards[0].cardNum === this.centralCards[1].cardNum) {
       return true;
     } else if (this.centralCards.length > 2 && this.centralCards[0].cardNum === this.centralCards[2].cardNum) {
       return true;
@@ -88,13 +88,14 @@ class Game {
   };
 
   checkPlay(playingPlayer, opposingPlayer) {
-    if (playingPlayer.hand.length < 1 && this.gameMode = 'sudden death') {
+    this.gameMode = playingPlayer.playCard(this.centralCards, this.gameMode);
+    if (playingPlayer.hand.length < 1 && this.gameMode === 'sudden death') {
       playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
       this.centralCards = [];
       playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
     } else if (opposingPlayer.hand.length > 0) {
       this.player1.isTurn = !this.player1.isTurn;
-      this.player1.isTurn = !this.player1.isTurn;
+      this.player2.isTurn = !this.player2.isTurn;
     };
   };
 };
