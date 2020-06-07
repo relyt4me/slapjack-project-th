@@ -1,8 +1,29 @@
-var game = new Game(cards, 'Player One', 'Player 2');
+var game = new Game(cards, 'Player One', 'Player Two');
 
-window.onload = game.redeal(cards);
+window.onload = setup();
 
 document.addEventListener('keypress', controlHandler);
+
+function setup() {
+  game.redeal(cards);
+  displayWins();
+};
+
+function displayWins() {
+  document.querySelector('h2').innerText = `
+  ${game.player1.name}: ${game.player1.wins}
+  ${game.player2.name}: ${game.player2.wins}`
+};
+
+function displayRule() {
+  document.querySelector('h1').innerText  = game.announcedRule;
+};
+
+function updateDisplay() {
+  displayWins();
+  displayRule();
+  displayLastCard();
+};
 
 function controlHandler(event) {
   if (event.code === 'KeyQ') {
@@ -21,8 +42,9 @@ function player1Play() {
     game.checkPlay(game.player1, game.player2);
     displayLastCard();
   } else {
-    console.log('Not Your Turn');
+    game.announcedRule = 'Not Your Turn';
   };
+  displayRule();
 };
 
 function player2Play() {
@@ -30,8 +52,9 @@ function player2Play() {
     game.checkPlay(game.player2, game.player1);
     displayLastCard();
   } else {
-    console.log('Not Your Turn');
+    game.announcedRule = 'Not Your Turn';
   };
+  displayRule();
 };
 
 function player1Slap() {
@@ -40,7 +63,7 @@ function player1Slap() {
   } else {
     game.slapCentralCardsNormal(game.player1, game.player2)
   };
-  displayLastCard();
+  updateDisplay();
 };
 
 function player2Slap() {
@@ -49,7 +72,7 @@ function player2Slap() {
   } else {
     game.slapCentralCardsNormal(game.player2, game.player1)
   };
-  displayLastCard();
+  updateDisplay();
 };
 
 function displayLastCard() {

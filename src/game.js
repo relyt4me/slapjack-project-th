@@ -4,6 +4,7 @@ class Game {
     this.player1 = new Player(player1Name);
     this.player2 = new Player(player2Name);
     this.centralCards = [];
+    this.announcedRule = 'SlapJACK GAME!!!!';
   };
 
   redeal() {
@@ -17,6 +18,7 @@ class Game {
     this.dealDeckToPlayers();
     this.player1.isTurn = true;
     this.player2.isTurn = false;
+    this.announcedRule = 'SlapJACK GAME!!!!';
   };
 
   shuffleDeck() {
@@ -59,12 +61,16 @@ class Game {
 
   isLegalNormal() {
     if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
+      this.announcedRule = '!!!SlapJACK!!!';
       return true;
     } else if (this.centralCards.length > 1 && this.centralCards[0].cardNum === this.centralCards[1].cardNum) {
+      this.announcedRule = 'DOUBLES x DOUBLES';
       return true;
     } else if (this.centralCards.length > 2 && this.centralCards[0].cardNum === this.centralCards[2].cardNum) {
+      this.announcedRule = 'SAND|xxx|WHICH';
       return true;
     } else {
+      this.announcedRule = '!!!!OUCH!!!!';
       return false;
     };
   };
@@ -86,8 +92,10 @@ class Game {
 
   isLegalSuddenDeath() {
     if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
+      this.announcedRule = 'SuperSLAPjacK';
       return true;
     } else {
+      this.announcedRule = 'OH NO!';
       return false;
     };
   };
@@ -107,7 +115,8 @@ class Game {
       this.centralCards = [];
       playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
       playingPlayer.onTheRopes = false;
-    }
+    };
+    this.announcedRule = 'SlapJACK GAME!!!!';
     // if (playingPlayer.hand.length < 1 && this.gameMode === 'sudden death') {
     //   playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
     //   this.centralCards = [];
