@@ -10,7 +10,6 @@ class Player {
   playCard(centralCards, gameMode) {
     centralCards.unshift(this.hand.shift());
     if (this.hand.length > 0) {
-      debugger;
       gameMode = 'normal';
     } else {
       gameMode = 'sudden death';

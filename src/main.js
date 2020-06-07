@@ -18,6 +18,39 @@ function controlHandler(event) {
     console.log('j');
     player2Slap();
   };
+  displayTopThree();
+};
+
+function player1Play() {
+  if (game.player1.isTurn) {
+    game.checkPlay(game.player1, game.player2);
+  } else {
+    console.log('Not Your Turn');
+  };
+};
+
+function player2Play() {
+  if (game.player2.isTurn) {
+    game.checkPlay(game.player2, game.player1);
+  } else {
+    console.log('Not Your Turn');
+  };
+};
+
+function player1Slap() {
+  if (game.gameMode === 'normal') {
+    slapCentralCardsNormal(game.player1, game.player2)
+  } else {
+    slapCentralCardsSuddenDeath(game.player1, game.player2)
+  };
+};
+
+function player2Slap() {
+  if (game.gameMode === 'normal') {
+    slapCentralCardsNormal(game.player1, game.player2)
+  } else {
+    slapCentralCardsSuddenDeath(game.player1, game.player2)
+  };
 };
 
 // function tylerPlay() {
@@ -46,12 +79,12 @@ function controlHandler(event) {
 //   game.slapCentralCardsSuddenDeath(game.player1, game.player2);
 // };
 //
-// function displayTopThree() {
-//   if (game.centralCards.length === 1) {
-//     console.log(game.centralCards[0].cardNum);
-//   } else if (game.centralCards.length === 2) {
-//     console.log(game.centralCards[0].cardNum + ' ' + game.centralCards[1].cardNum);
-//   } else {
-//     console.log(game.centralCards[0].cardNum + ' ' + game.centralCards[1].cardNum + ' ' + game.centralCards[2].cardNum);
-//   };
-// }
+function displayTopThree() {
+  if (game.centralCards.length === 1) {
+    console.log(game.centralCards[0].cardNum);
+  } else if (game.centralCards.length === 2) {
+    console.log(game.centralCards[0].cardNum + ' ' + game.centralCards[1].cardNum);
+  } else {
+    console.log(game.centralCards[0].cardNum + ' ' + game.centralCards[1].cardNum + ' ' + game.centralCards[2].cardNum);
+  };
+};
