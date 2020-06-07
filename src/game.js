@@ -6,7 +6,7 @@ class Game {
     this.centralCards = [];
     this.gameMode = 'normal';
   };
-  
+
   redeal() {
     this.cards = this.cards.concat(this.player1.hand, this.player2.hand, this.centralCards);
     this.player1.hand = [];
@@ -17,8 +17,6 @@ class Game {
     this.dealDeckToPlayers();
     this.player1.isTurn = true;
     this.player2.isTurn = false;
-    console.log(this.player1.hand[0]);
-    console.log(this.player2.hand[0]);
   };
 
   shuffleDeck() {
@@ -44,29 +42,51 @@ class Game {
     this.player2.hand = this.cards.splice(0, 26);
   };
 
-  slapCentralCards(slappingPlayer, opposingPlayer) {
-    if (gameMode === 'suddenDeath' && opposingPlayer.hand.length < 1 && this.centralCards[0].cardNum === 11) {
-      slappingPlayer.winGame();
-    };
-
-    if (this.isLegal()) {
+  slapCentralCardsNormal(slappingPlayer, opposingPlayer) {
+    if (this.isLegalNormal()) {
       slappingPlayer.hand = slappingPlayer.hand.concat(this.centralCards);
       this.centralCards = [];
       slappingPlayer.hand = this.shuffleCards(slappingPlayer.hand);
-      console.log(this.player1.hand);
-      console.log(this.player2.hand);
     } else {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
     };
   };
 
-  isLegal() {
-    debugger;
+  isLegalNormal() {
     if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
       return true;
     } else if (this.centralCards.length > 2 && this.centralCards[0].cardNum === this.centralCards[1].cardNum) {
       return true;
     } else if (this.centralCards.length > 2 && this.centralCards[0].cardNum === this.centralCards[2].cardNum) {
+      return true;
+    } else {
+      return false;
+    };
+  };
+
+  slapCentralCardsSuddenDeath(slappingPlayer, opposingPlayer) {
+    if (slappingPlayer.hand.length > 0 && this.isLegalSuddenDeath()) {
+      slappingPlayer.winGame();
+      this.redeal();
+    } else if (slappingPlayer.hand.length < 1 && this.isLegalSuddenDeath()) {
+      slappingPlayer.hand = slappingPlayer.hand.concat(this.centralCards);
+      this.centralCards = [];
+      slappingPlayer.hand = this.shuffleCards(slappingPlayer.hand);
+      this.gameMode = 'normal';
+    } else if (slappingPlayer.hand.length > 0 && !this.isLegalSuddenDeath()) {
+      opposingPlayer.hand.push(slappingPlayer.hand.shift());
+      this.gameMode = 'normal';
+    } else {
+      slappingPlayer.winGame();
+      this.redeal();
+    };
+    // if (gameMode === 'suddenDeath' && opposingPlayer.hand.length < 1 && this.centralCards[0].cardNum === 11) {
+    //   slappingPlayer.winGame();
+    // };
+  };
+
+  isLegalSuddenDeath() {
+    if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
       return true;
     } else {
       return false;
