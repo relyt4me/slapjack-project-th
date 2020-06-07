@@ -65,10 +65,7 @@ class Game {
   };
 
   slapCentralCardsSuddenDeath(slappingPlayer, opposingPlayer) {
-    if (slappingPlayer.hand.length > 0 && this.isLegalSuddenDeath()) {
-      slappingPlayer.winGame();
-      this.redeal();
-    } else if (slappingPlayer.hand.length < 1 && this.isLegalSuddenDeath()) {
+    if (slappingPlayer.hand.length < 1 && this.isLegalSuddenDeath()) {
       slappingPlayer.hand = slappingPlayer.hand.concat(this.centralCards);
       this.centralCards = [];
       slappingPlayer.hand = this.shuffleCards(slappingPlayer.hand);
@@ -80,9 +77,6 @@ class Game {
       slappingPlayer.winGame();
       this.redeal();
     };
-    // if (gameMode === 'suddenDeath' && opposingPlayer.hand.length < 1 && this.centralCards[0].cardNum === 11) {
-    //   slappingPlayer.winGame();
-    // };
   };
 
   isLegalSuddenDeath() {
@@ -90,6 +84,17 @@ class Game {
       return true;
     } else {
       return false;
+    };
+  };
+
+  checkPlay(playingPlayer, opposingPlayer) {
+    if (playingPlayer.hand.length < 1 && this.gameMode = 'sudden death') {
+      playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
+      this.centralCards = [];
+      playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
+    } else if (opposingPlayer.hand.length > 0) {
+      this.player1.isTurn = !this.player1.isTurn;
+      this.player1.isTurn = !this.player1.isTurn;
     };
   };
 };
