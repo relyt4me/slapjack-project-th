@@ -6,7 +6,6 @@ document.addEventListener('keypress', controlHandler);
 
 function setup() {
   game.resetGame();
-  //set players to scores
   updateDisplay();
 };
 
