@@ -44,6 +44,7 @@ function player1Play() {
   } else {
     game.announcedRule = 'Not Your Turn';
   };
+  
   displayRule();
 };
 

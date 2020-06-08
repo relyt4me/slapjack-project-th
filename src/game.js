@@ -28,6 +28,7 @@ class Game {
   shuffleCards(givenCards) {
     var startingLengthCards = givenCards.length;
     var shuffledCards = [];
+
     for (var i = 0; i < startingLengthCards; i++) {
       shuffledCards.push(givenCards.splice(this.randomCard(givenCards), 1)[0]);
     };
@@ -60,7 +61,7 @@ class Game {
   };
 
   isLegalNormal() {
-    if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
+    if (this.centralCards.length && this.centralCards[0].cardNum === 11) {
       this.announcedRule = '!!!SlapJACK!!!';
       return true;
     } else if (this.centralCards.length > 1 && this.centralCards[0].cardNum === this.centralCards[1].cardNum) {
@@ -81,7 +82,7 @@ class Game {
       this.centralCards = [];
       slappingPlayer.hand = this.shuffleCards(slappingPlayer.hand);
       slappingPlayer.onTheRopes = false;
-    } else if (slappingPlayer.hand.length > 0 && !this.isLegalSuddenDeath()) {
+    } else if (slappingPlayer.hand.length && !this.isLegalSuddenDeath()) {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
       opposingPlayer.onTheRopes = false;
     } else {
