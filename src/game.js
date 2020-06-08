@@ -4,7 +4,7 @@ class Game {
     this.player1 = new Player(player1Name);
     this.player2 = new Player(player2Name);
     this.centralCards = [];
-    this.gameMode = 'normal';
+    this.announcedRule = 'SlapJACK GAME!!!!';
   };
 
   redeal() {
@@ -12,11 +12,13 @@ class Game {
     this.player1.hand = [];
     this.player2.hand = [];
     this.centralCards = [];
-    this.gameMode = 'normal';
+    this.player1.onTheRopes = false;
+    this.player2.onTheRopes = false;
     this.shuffleDeck();
     this.dealDeckToPlayers();
     this.player1.isTurn = true;
     this.player2.isTurn = false;
+    this.announcedRule = 'SlapJACK GAME!!!!';
   };
 
   shuffleDeck() {
@@ -38,6 +40,11 @@ class Game {
   };
 
   dealDeckToPlayers() {
+    //********FOR TESTING*********//
+    // this.player1.hand = this.cards.splice(0, 51);
+    // this.player2.hand = this.cards.splice(0, 1);
+    //********FOR TESTING*********//
+
     this.player1.hand = this.cards.splice(0, 26);
     this.player2.hand = this.cards.splice(0, 26);
   };
@@ -54,12 +61,16 @@ class Game {
 
   isLegalNormal() {
     if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
+      this.announcedRule = '!!!SlapJACK!!!';
       return true;
     } else if (this.centralCards.length > 1 && this.centralCards[0].cardNum === this.centralCards[1].cardNum) {
+      this.announcedRule = 'DOUBLES x DOUBLES';
       return true;
     } else if (this.centralCards.length > 2 && this.centralCards[0].cardNum === this.centralCards[2].cardNum) {
+      this.announcedRule = 'SAND|xxx|WHICH';
       return true;
     } else {
+      this.announcedRule = '!!!!OUCH!!!!';
       return false;
     };
   };
@@ -69,10 +80,10 @@ class Game {
       slappingPlayer.hand = slappingPlayer.hand.concat(this.centralCards);
       this.centralCards = [];
       slappingPlayer.hand = this.shuffleCards(slappingPlayer.hand);
-      this.gameMode = 'normal';
+      slappingPlayer.onTheRopes = false;
     } else if (slappingPlayer.hand.length > 0 && !this.isLegalSuddenDeath()) {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
-      this.gameMode = 'normal';
+      opposingPlayer.onTheRopes = false;
     } else {
       slappingPlayer.winGame();
       this.redeal();
@@ -81,21 +92,38 @@ class Game {
 
   isLegalSuddenDeath() {
     if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
+      this.announcedRule = 'SuperSLAPjacK';
       return true;
     } else {
+      this.announcedRule = 'OH NO!';
       return false;
     };
   };
 
   checkPlay(playingPlayer, opposingPlayer) {
-    this.gameMode = playingPlayer.playCard(this.centralCards, this.gameMode);
-    if (playingPlayer.hand.length < 1 && this.gameMode === 'sudden death') {
+    playingPlayer.playCard(this.centralCards);
+    if (!playingPlayer.onTheRopes && !opposingPlayer.onTheRopes) {
+      this.player1.isTurn = !this.player1.isTurn;
+      this.player2.isTurn = !this.player2.isTurn;
+    } else if (playingPlayer.onTheRopes && !opposingPlayer.onTheRopes) {
+      this.player1.isTurn = !this.player1.isTurn;
+      this.player2.isTurn = !this.player2.isTurn;
+    } else if (!playingPlayer.onTheRopes && opposingPlayer.onTheRopes) {
+
+    } else if (playingPlayer.onTheRopes && opposingPlayer.onTheRopes) {
       playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
       this.centralCards = [];
       playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
-    } else if (opposingPlayer.hand.length > 0) {
-      this.player1.isTurn = !this.player1.isTurn;
-      this.player2.isTurn = !this.player2.isTurn;
+      playingPlayer.onTheRopes = false;
     };
+    this.announcedRule = 'SlapJACK GAME!!!!';
+    // if (playingPlayer.hand.length < 1 && this.gameMode === 'sudden death') {
+    //   playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
+    //   this.centralCards = [];
+    //   playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
+    // } else if (opposingPlayer.hand.length > 0) {
+    //   this.player1.isTurn = !this.player1.isTurn;
+    //   this.player2.isTurn = !this.player2.isTurn;
+    // };
   };
 };

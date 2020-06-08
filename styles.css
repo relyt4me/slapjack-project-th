@@ -27,5 +27,13 @@ h1 {
   padding-top: 5%;
   text-align: center;
   font-size: 15em;
-  color: #D1E8E2
+  color: #D1E8E2;
 }
+
+h2 {
+  font-size: 5em;
+  position: absolute;
+  top: 1vh;
+  left: 1vw;
+  color: #D1E8E2;
+};
