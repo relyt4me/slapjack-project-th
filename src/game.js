@@ -32,13 +32,13 @@ class Game {
   };
 
   allowPlay(playingPlayer, opposingPlayer) {
-    playingPlayer.playCard(this.centralCards);
+    this.centralCards.unshift(playingPlayer.playCard());
 
     if (!opposingPlayer.onTheRopes) {
       this.player1.isTurn = !this.player1.isTurn;
       this.player2.isTurn = !this.player2.isTurn;
     } else if (playingPlayer.onTheRopes && opposingPlayer.onTheRopes) {
-      this.addCentralPile(playingPlayer);
+      this.givePlayerCentralPile(playingPlayer);
       playingPlayer.onTheRopes = false;
     };
 
@@ -47,7 +47,7 @@ class Game {
 
   slapCentralCardsNormal(slappingPlayer, opposingPlayer) {
     if (this.isLegalNormal()) {
-      this.addCentralPile(slappingPlayer);
+      this.givePlayerCentralPile(slappingPlayer);
     } else {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
     };
@@ -71,7 +71,7 @@ class Game {
 
   slapCentralCardsSuddenDeath(slappingPlayer, opposingPlayer) {
     if (slappingPlayer.hand.length < 1 && this.isLegalSuddenDeath()) {
-      this.addCentralPile(slappingPlayer);
+      this.givePlayerCentralPile(slappingPlayer);
       slappingPlayer.onTheRopes = false;
     } else if (slappingPlayer.hand.length && !this.isLegalSuddenDeath()) {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
@@ -92,7 +92,7 @@ class Game {
     };
   };
 
-  addCentralPile(player) {
+  givePlayerCentralPile(player) {
     player.hand = player.hand.concat(this.centralCards);
     this.centralCards = [];
     player.hand = this.shuffleCards(player.hand);

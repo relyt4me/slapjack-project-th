@@ -5,7 +5,9 @@ window.onload = setup();
 document.addEventListener('keypress', controlHandler);
 
 function setup() {
+  //pull in score
   game.resetGame();
+  //set players to scores
   updateDisplay();
 };
 

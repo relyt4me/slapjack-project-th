@@ -7,11 +7,14 @@ class Player {
     this.onTheRopes = false;
   };
 
-  playCard(centralCards) {
-    centralCards.unshift(this.hand.shift());
-    if (this.hand.length === 0) {
+  playCard() {
+    var playedCard = this.hand.shift();
+
+    if (!this.hand.length) {
       this.onTheRopes = true;
     };
+
+    return playedCard;
   };
 
   winGame() {
