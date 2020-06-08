@@ -52,9 +52,7 @@ class Game {
 
   slapCentralCardsNormal(slappingPlayer, opposingPlayer) {
     if (this.isLegalNormal()) {
-      slappingPlayer.hand = slappingPlayer.hand.concat(this.centralCards);
-      this.centralCards = [];
-      slappingPlayer.hand = this.shuffleCards(slappingPlayer.hand);
+      this.addCentralPile(slappingPlayer);
     } else {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
     };
@@ -78,9 +76,7 @@ class Game {
 
   slapCentralCardsSuddenDeath(slappingPlayer, opposingPlayer) {
     if (slappingPlayer.hand.length < 1 && this.isLegalSuddenDeath()) {
-      slappingPlayer.hand = slappingPlayer.hand.concat(this.centralCards);
-      this.centralCards = [];
-      slappingPlayer.hand = this.shuffleCards(slappingPlayer.hand);
+      this.addCentralPile(slappingPlayer);
       slappingPlayer.onTheRopes = false;
     } else if (slappingPlayer.hand.length && !this.isLegalSuddenDeath()) {
       opposingPlayer.hand.push(slappingPlayer.hand.shift());
@@ -99,6 +95,12 @@ class Game {
       this.announcedRule = 'OH NO!';
       return false;
     };
+  };
+
+  addCentralPile(player) {
+    player.hand = player.hand.concat(this.centralCards);
+    this.centralCards = [];
+    player.hand = this.shuffleCards(player.hand);
   };
 
   checkPlay(playingPlayer, opposingPlayer) {
