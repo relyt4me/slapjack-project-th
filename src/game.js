@@ -7,7 +7,6 @@ class Game {
     this.announcedRule = 'SlapJACK GAME!!!!';
   };
 
-  //*** Methods ***//
   resetGame() {
     this.announcedRule = 'SlapJACK GAME!!!!';
     this.player1.onTheRopes = false;
@@ -32,17 +31,22 @@ class Game {
   };
 
   allowPlay(playingPlayer, opposingPlayer) {
-    this.centralCards.unshift(playingPlayer.playCard());
+    if (this.centralCards.length === 52) {
+      this.givePlayerCentralPile(playingPlayer);
+      playingPlayer.onTheRopes = false;
+    } else {
+      this.centralCards.unshift(playingPlayer.playCard());
+    };
 
+    this.decideTurns(opposingPlayer);
+    this.announcedRule = 'SlapJACK GAME!!!!';
+  };
+
+  decideTurns(opposingPlayer) {
     if (!opposingPlayer.onTheRopes) {
       this.player1.isTurn = !this.player1.isTurn;
       this.player2.isTurn = !this.player2.isTurn;
-    } else if (playingPlayer.onTheRopes && opposingPlayer.onTheRopes) {
-      this.givePlayerCentralPile(playingPlayer);
-      playingPlayer.onTheRopes = false;
     };
-
-    this.announcedRule = 'SlapJACK GAME!!!!';
   };
 
   slapCentralCardsNormal(slappingPlayer, opposingPlayer) {

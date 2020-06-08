@@ -5,9 +5,7 @@ window.onload = setup();
 document.addEventListener('keypress', controlHandler);
 
 function setup() {
-  //pull in score
   game.resetGame();
-  //set players to scores
   updateDisplay();
 };
 
@@ -88,18 +86,32 @@ function displayCards() {
 };
 
 function updatePlayer1Display() {
+  var player1Area = document.querySelector('.player-one-area');
   if (game.player1.hand.length === 0) {
-    document.querySelector('.player-one-area').src = "assets/open-hand.png";
+    player1Area.src = "assets/open-hand.png";
   } else {
-    document.querySelector('.player-one-area').src = "./assets/card-deck-assets/back.png";
+    player1Area.src = "./assets/card-deck-assets/back.png";
+  };
+  
+  if (game.player1.isTurn) {
+    player1Area.classList.add('is-turn-color');
+  } else {
+    player1Area.classList.remove('is-turn-color');
   };
 };
 
 function updatePlayer2Display() {
+  var player2Area = document.querySelector('.player-two-area');
   if (game.player2.hand.length === 0) {
-    document.querySelector('.player-two-area').src = "assets/open-hand.png";
+    player2Area.src = "assets/open-hand.png";
   } else {
-    document.querySelector('.player-two-area').src = "./assets/card-deck-assets/back.png";
+    player2Area.src = "./assets/card-deck-assets/back.png";
+  };
+
+  if (game.player2.isTurn) {
+    player2Area.classList.add('is-turn-color');
+  } else {
+    player2Area.classList.remove('is-turn-color');
   };
 };
 
