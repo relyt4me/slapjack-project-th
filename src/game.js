@@ -7,6 +7,7 @@ class Game {
     this.announcedRule = 'SlapJACK GAME!!!!';
   };
 
+  //*** Methods ***//
   resetGame() {
     this.announcedRule = 'SlapJACK GAME!!!!';
     this.player1.onTheRopes = false;
@@ -14,34 +15,34 @@ class Game {
     this.player1.isTurn = true;
     this.player2.isTurn = false;
     this.clearCards();
+    this.cards = this.shuffleCards(this.cards);
     this.dealDeckToPlayers();
   };
 
   clearCards() {
+    this.cards = this.cards.concat(this.player1.hand, this.player2.hand, this.centralCards);
     this.player1.hand = [];
     this.player2.hand = [];
     this.centralCards = [];
-    this.cards = this.shuffleCards(this.cards);
-  };
-
-  shuffleCards(givenCards) {
-    var startingLengthCards = givenCards.length;
-    var shuffledCards = [];
-
-    for (var i = 0; i < startingLengthCards; i++) {
-      shuffledCards.push(givenCards.splice(this.randomCard(givenCards), 1)[0]);
-    };
-
-    return shuffledCards;
-  };
-
-  randomCard(setOfCards) {
-    return Math.floor(Math.random() * setOfCards.length);
   };
 
   dealDeckToPlayers() {
     this.player1.hand = this.cards.splice(0, 26);
     this.player2.hand = this.cards.splice(0, 26);
+  };
+
+  allowPlay(playingPlayer, opposingPlayer) {
+    playingPlayer.playCard(this.centralCards);
+
+    if (!opposingPlayer.onTheRopes) {
+      this.player1.isTurn = !this.player1.isTurn;
+      this.player2.isTurn = !this.player2.isTurn;
+    } else if (playingPlayer.onTheRopes && opposingPlayer.onTheRopes) {
+      this.addCentralPile(playingPlayer);
+      playingPlayer.onTheRopes = false;
+    };
+
+    this.announcedRule = 'SlapJACK GAME!!!!';
   };
 
   slapCentralCardsNormal(slappingPlayer, opposingPlayer) {
@@ -77,7 +78,7 @@ class Game {
       opposingPlayer.onTheRopes = false;
     } else {
       slappingPlayer.winGame();
-      this.redeal();
+      this.resetGame();
     };
   };
 
@@ -97,30 +98,18 @@ class Game {
     player.hand = this.shuffleCards(player.hand);
   };
 
-  checkPlay(playingPlayer, opposingPlayer) {
-    playingPlayer.playCard(this.centralCards);
-    if (!playingPlayer.onTheRopes && !opposingPlayer.onTheRopes) {
-      this.player1.isTurn = !this.player1.isTurn;
-      this.player2.isTurn = !this.player2.isTurn;
-    } else if (playingPlayer.onTheRopes && !opposingPlayer.onTheRopes) {
-      this.player1.isTurn = !this.player1.isTurn;
-      this.player2.isTurn = !this.player2.isTurn;
-    } else if (!playingPlayer.onTheRopes && opposingPlayer.onTheRopes) {
+  shuffleCards(givenCards) {
+    var startingLengthCards = givenCards.length;
+    var shuffledCards = [];
 
-    } else if (playingPlayer.onTheRopes && opposingPlayer.onTheRopes) {
-      playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
-      this.centralCards = [];
-      playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
-      playingPlayer.onTheRopes = false;
+    for (var i = 0; i < startingLengthCards; i++) {
+      shuffledCards.push(givenCards.splice(this.randomCard(givenCards), 1)[0]);
     };
-    this.announcedRule = 'SlapJACK GAME!!!!';
-    // if (playingPlayer.hand.length < 1 && this.gameMode === 'sudden death') {
-    //   playingPlayer.hand = playingPlayer.hand.concat(this.centralCards);
-    //   this.centralCards = [];
-    //   playingPlayer.hand = this.shuffleCards(playingPlayer.hand);
-    // } else if (opposingPlayer.hand.length > 0) {
-    //   this.player1.isTurn = !this.player1.isTurn;
-    //   this.player2.isTurn = !this.player2.isTurn;
-    // };
+
+    return shuffledCards;
+  };
+
+  randomCard(setOfCards) {
+    return Math.floor(Math.random() * setOfCards.length);
   };
 };

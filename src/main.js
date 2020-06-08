@@ -6,7 +6,19 @@ document.addEventListener('keypress', controlHandler);
 
 function setup() {
   game.resetGame();
-  displayWins();
+  updateDisplay();
+};
+
+function controlHandler(event) {
+  if (event.code === 'KeyQ') {
+    player1Play();
+  } else if (event.code === 'KeyP') {
+    player2Play();
+  } else if (event.code === 'KeyF') {
+    player1Slap();
+  } else if (event.code === 'KeyJ') {
+    player2Slap();
+  };
 };
 
 function displayWins() {
@@ -25,21 +37,10 @@ function updateDisplay() {
   displayLastCard();
 };
 
-function controlHandler(event) {
-  if (event.code === 'KeyQ') {
-    player1Play();
-  } else if (event.code === 'KeyP') {
-    player2Play();
-  } else if (event.code === 'KeyF') {
-    player1Slap();
-  } else if (event.code === 'KeyJ') {
-    player2Slap();
-  };
-};
 
 function player1Play() {
   if (game.player1.isTurn) {
-    game.checkPlay(game.player1, game.player2);
+    game.allowPlay(game.player1, game.player2);
     displayLastCard();
   } else {
     game.announcedRule = 'Not Your Turn';
@@ -50,7 +51,7 @@ function player1Play() {
 
 function player2Play() {
   if (game.player2.isTurn) {
-    game.checkPlay(game.player2, game.player1);
+    game.allowPlay(game.player2, game.player1);
     displayLastCard();
   } else {
     game.announcedRule = 'Not Your Turn';
@@ -92,5 +93,4 @@ function displayLastCard() {
   } else {
     document.querySelector('.player-two-area').src = "./assets/card-deck-assets/back.png";
   }
-  console.log(game.centralCards[0].cardNum);
 };
