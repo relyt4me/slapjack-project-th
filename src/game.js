@@ -7,21 +7,20 @@ class Game {
     this.announcedRule = 'SlapJACK GAME!!!!';
   };
 
-  redeal() {
-    this.cards = this.cards.concat(this.player1.hand, this.player2.hand, this.centralCards);
+  resetGame() {
+    this.announcedRule = 'SlapJACK GAME!!!!';
+    this.player1.onTheRopes = false;
+    this.player2.onTheRopes = false;
+    this.player1.isTurn = true;
+    this.player2.isTurn = false;
+    this.clearCards();
+    this.dealDeckToPlayers();
+  };
+
+  clearCards() {
     this.player1.hand = [];
     this.player2.hand = [];
     this.centralCards = [];
-    this.player1.onTheRopes = false;
-    this.player2.onTheRopes = false;
-    this.shuffleDeck();
-    this.dealDeckToPlayers();
-    this.player1.isTurn = true;
-    this.player2.isTurn = false;
-    this.announcedRule = 'SlapJACK GAME!!!!';
-  };
-
-  shuffleDeck() {
     this.cards = this.shuffleCards(this.cards);
   };
 
@@ -41,11 +40,6 @@ class Game {
   };
 
   dealDeckToPlayers() {
-    //********FOR TESTING*********//
-    // this.player1.hand = this.cards.splice(0, 51);
-    // this.player2.hand = this.cards.splice(0, 1);
-    //********FOR TESTING*********//
-
     this.player1.hand = this.cards.splice(0, 26);
     this.player2.hand = this.cards.splice(0, 26);
   };

@@ -5,7 +5,7 @@ window.onload = setup();
 document.addEventListener('keypress', controlHandler);
 
 function setup() {
-  game.redeal(cards);
+  game.resetGame();
   displayWins();
 };
 
@@ -44,7 +44,7 @@ function player1Play() {
   } else {
     game.announcedRule = 'Not Your Turn';
   };
-  
+
   displayRule();
 };
 
