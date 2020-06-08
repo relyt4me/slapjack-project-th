@@ -50,5 +50,5 @@ var cards = [
   {picture: 'assets/card-deck-assets/red-10.png', cardNum: 10},
   {picture: 'assets/card-deck-assets/red-jack.png', cardNum: 11},
   {picture: 'assets/card-deck-assets/red-queen.png', cardNum: 12},
-  {picture: 'assets/card-deck-assets/red-king.png', cardNum: 13},
+  {picture: 'assets/card-deck-assets/red-king.png', cardNum: 13}
 ];
