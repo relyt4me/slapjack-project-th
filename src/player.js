@@ -1,8 +1,8 @@
 class Player {
   constructor(name) {
-    this.wins = 0;
-    this.hand = [];
     this.name = name;
+    this.wins = this.getSavedScore() || 0;
+    this.hand = [];
     this.isTurn = true;
     this.onTheRopes = false;
   };
@@ -18,6 +18,13 @@ class Player {
   };
 
   winGame() {
-    this.wins ++;
+    this.wins++;
+    var stringyWins = JSON.stringify(this.wins);
+    localStorage.setItem(this.name, stringyWins);
+  };
+
+  getSavedScore() {
+    var savedWins = JSON.parse(localStorage.getItem(this.name));
+    return savedWins
   };
 };
