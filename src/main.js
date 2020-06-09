@@ -89,10 +89,12 @@ function updatePlayer1Display() {
   var player1Area = document.querySelector('.player-one-area');
   if (game.player1.hand.length === 0) {
     player1Area.src = "assets/open-hand.png";
+    player1Area.alt = "Empty Player One Hand";
   } else {
     player1Area.src = "./assets/card-deck-assets/back.png";
+    player1Area.alt = "Player One Hand";
   };
-  
+
   if (game.player1.isTurn) {
     player1Area.classList.add('is-turn-color');
   } else {
@@ -104,8 +106,10 @@ function updatePlayer2Display() {
   var player2Area = document.querySelector('.player-two-area');
   if (game.player2.hand.length === 0) {
     player2Area.src = "assets/open-hand.png";
+    player2Area.alt = "Empty Player Two Hand";
   } else {
     player2Area.src = "./assets/card-deck-assets/back.png";
+    player2Area.alt = "Player Two Hand";
   };
 
   if (game.player2.isTurn) {
@@ -116,9 +120,12 @@ function updatePlayer2Display() {
 };
 
 function updateCentralCardsDisplay() {
+  var centralCardArea = document.querySelector('.card-pile-area');
   if (game.centralCards.length === 0) {
-    document.querySelector('.card-pile-area').src = 'assets/open-hand.png';
+    centralCardArea.src = "assets/open-hand.png";
+    centralCardArea.alt = "Empty Play Area";
   } else {
-    document.querySelector('.card-pile-area').src = game.centralCards[0].picture;
+    centralCardArea.src = game.centralCards[0].picture;
+    centralCardArea.alt = game.centralCards[0].desc;
   };
 };
