@@ -70,7 +70,7 @@ function updateDisplay() {
 };
 
 function displayWins() {
-  document.querySelector('h2').innerText = `
+  document.querySelector('h2').innerText = `ScoreBoard:
   ${game.player1.name}: ${game.player1.wins}
   ${game.player2.name}: ${game.player2.wins}`;
 };
