@@ -87,11 +87,10 @@ class Game {
   };
 
   isLegalSuddenDeath() {
-    if (this.centralCards[0].cardNum === 11 && this.centralCards.length > 0) {
+    if (this.centralCards.length && this.centralCards[0].cardNum === 11) {
       this.announcedRule = 'SuperSLAPjacK';
       return true;
     } else {
-      this.announcedRule = 'OH NO!';
       return false;
     };
   };
